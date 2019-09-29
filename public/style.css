@@ -1,0 +1,101 @@
+@font-face
+{
+    font-family: 'Calligraffiti';
+    src: url("font/Calligraffiti.ttf");
+}
+
+h1
+{
+    margin-top: 10px;
+    font-family: "Calligraffiti";
+    text-align: center;
+    color: #fafad4;  
+    text-shadow: 0.1em 0.1em 0.2em black;
+    font-size: 4em;
+}
+
+header
+{
+    height: 135px;
+    margin-bottom: 2%;
+}
+
+body
+{
+    background-image:url(img/alaska.jpg);
+    background-attachment:fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.compte
+{
+    position: absolute;
+    left: 80%;
+    top: 1%;
+    padding: 10px;
+    border: solid 1px black;
+    border-radius: 3px;
+    background-color: rgba(250, 250, 212, 0.5);
+}
+
+#derniersChapitres
+{
+
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+section
+{
+    padding: 1%;
+    border: solid 1px black;
+    border-radius: 3px;
+    background-color: rgba(250, 250, 212, 0.5);
+    width: 60%;
+}
+
+.link
+{
+    color: #4a3314;
+}
+
+.link:hover
+{
+    color: black;
+}
+
+#invisible
+{
+    visibility: hidden;
+    position: absolute;
+}
+
+@media all and (max-width: 1024px)
+{
+    h1 
+    {
+        font-size: 3em;
+    }
+}
+
+@media all and (max-width: 768px)
+{
+    .compte
+    {
+        position: static;
+    }
+    section
+    {
+        margin-top: 50px;
+        width: 90%;
+    }
+}
+@media all and (max-width: 460px)
+{
+    section 
+    {
+        margin-top: 120px;
+    }
+}
