@@ -1,5 +1,4 @@
 <?php $title = 'Insciption'; ?>
-<?php $connexion ='';?>
 
 <?php ob_start(); ?>
 

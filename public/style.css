@@ -72,6 +72,30 @@ section
     position: absolute;
 }
 
+#imgEdition
+{
+    margin:15px;
+}
+
+img
+{
+    width: 100px;
+    border: solid 1px black;
+    border-radius: 3px;
+}
+
+.imgComm
+{
+    width: 50px;
+    border: solid 1px black;
+    border-radius: 3px;
+}
+
+#formComm
+{
+    margin-bottom: 15px;
+}
+
 @media all and (max-width: 1024px)
 {
     h1 

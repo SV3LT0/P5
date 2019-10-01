@@ -16,7 +16,7 @@
 
 <h3>Commentaires</h3>
 
-<form action= "index.php?action=addComment&amp;id=<?=$episode['id']?>" method="post">
+<form id="formComm" action= "index.php?action=addComment&amp;id=<?=$episode['id']?>" method="post">
     <?php
     if(isset($_SESSION['pseudo'])){
         $postPseudo = $_SESSION['pseudo'] ?>
@@ -45,8 +45,9 @@
 <?php 
 while ($comment = $comments->fetch())
 {
-?>
-    <p><strong><?= htmlspecialchars($comment['auteur']) ?></strong> le <?= $comment['comment_date'] ?>
+?>  
+    <p><img class="imgComm"  src="public/img/<?=$comment['avatar']?>" alt="avatar">
+    <strong><?= htmlspecialchars($comment['auteur']) ?></strong> le <?= $comment['comment_date'] ?>
     <a class="link" href="index.php?action=reportComm&amp;id=<?=$comment['id']?>&amp;idEpisode=<?=$comment['idEpisode']?>">Signaler</a>
     <?php 
     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']==1) { ?>

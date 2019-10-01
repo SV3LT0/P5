@@ -2,7 +2,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require('controller/frontend.php');
+require('controller/CommentFrontend.php');
+require('controller/PostFrontend.php');
+require('controller/UserFrontend.php');
+
 
 try {
     if(isset($_GET['action'])){
@@ -44,6 +47,19 @@ try {
         }
         elseif ($_GET['action']=='deconnexion') {
             déconnexion();
+        }
+        elseif ($_GET['action']=='editerProfil'){
+            pageEditionProfil();
+        }
+        elseif($_GET['action']=='editUser'){
+            session_start();
+            editerUser($_POST['newPseudo'],$_POST['newMdp1'], $_POST['newMdp2'], $_SESSION['id'], $_SESSION['pseudo']);
+        }
+        elseif($_GET['action']=='pageAvatar'){
+            pageAvatar();
+        }
+        elseif($_GET['action']=='editAvatar'){
+            editAvatar($_FILES['avatar']['name'],$_FILES['avatar']['tmp_name']);
         }
         elseif($_GET['action']=='newEpisode'){
             pageNewEpisode();

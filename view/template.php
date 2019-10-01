@@ -20,9 +20,11 @@
                 <?php
                     if(isset($_SESSION['pseudo'])){ ?>
                         <div class='compte'>
-                            <p>Bonjour <?php echo $_SESSION['pseudo'];?>
-                            <a href="index.php?action=deconnexion"><button type="button" class="btn btn-dark">Déconnexion</button></a></p>
-                        </div>    
+                            <img src="public/img/<?=$_SESSION['avatar']?>" alt="avatar"><br>
+                            <p>Bonjour <?php echo $_SESSION['pseudo'];?> <br>
+                            <a href="index.php?action=deconnexion"><button type="button" class="btn btn-dark">Déconnexion</button></a>
+                            <a href="index.php?action=editerProfil"><button type="button" class="btn btn-dark">Éditer Profil</button></a></p>
+                        </div>
                     <?php
                     } elseif (!isset($_GET['action']) or $_GET['action']!='inscription'){
                     ?>
