@@ -29,7 +29,18 @@ body
     align-items: center;
 }
 
-.compte
+ul
+{
+    display: flex;
+    list-style: none;
+}
+
+button
+{
+    width: 150px;
+}
+
+#compte
 {
     position: absolute;
     left: 80%;

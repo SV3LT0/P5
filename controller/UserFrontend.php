@@ -89,22 +89,33 @@ function pageAvatar()
     require('view/ajoutPhoto.php');
 }
 
-function editAvatar($avatarName, $avatarTmpName)
+function editAvatar($avatarName, $avatarTmpName, $avatarSize)
 {   
     session_start();
     $idUser = $_SESSION['id'];
     $extension = strtolower(substr(strrchr($avatarName, '.'), 1));
-    $newName = $idUser.".".$extension;
-    $chemin="public/img/".$newName;
-    move_uploaded_file($avatarTmpName,$chemin);
+    $legaleExtension = array("jpg", "png", "jpeg");
+    $maxSize = 2000000;
 
-    $userManager = new UserManager();
-    $ajoutAvatar = $userManager->ajoutAvatar($newName,$idUser);
+    if ($avatarSize > 0 AND $avatarSize < $maxSize ) {
+        if(in_array($extension, $legaleExtension)){
+            $newName = $idUser.".".$extension;
+            $chemin="public/img/".$newName;
+            move_uploaded_file($avatarTmpName,$chemin);
 
-    if ($editPhotoProfil===false) {
-        throw new Exception ('Impossible de modifier votre photo de profil');
-    }else{
-        $_SESSION['avatar']=$newName;
-        header('Location: index.php?action=editerProfil');
+            $userManager = new UserManager();
+            $ajoutAvatar = $userManager->ajoutAvatar($newName,$idUser);
+
+            if ($editPhotoProfil===false) {
+                throw new Exception ('Impossible de modifier votre photo de profil');
+            }else{
+                $_SESSION['avatar']=$newName;
+                header('Location: index.php?action=editerProfil');
+            }
+        }else{
+            throw new Exception ('Le type de fichier n\'est pas correct !');
+        }
+    }else {
+        throw new Exception ('Le poids du fichier ne convient pas !');
     }
 }

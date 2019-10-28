@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 require('controller/CommentFrontend.php');
 require('controller/PostFrontend.php');
 require('controller/UserFrontend.php');
+require('controller/ScoreController.php');
 
 
 try {
@@ -59,7 +60,7 @@ try {
             pageAvatar();
         }
         elseif($_GET['action']=='editAvatar'){
-            editAvatar($_FILES['avatar']['name'],$_FILES['avatar']['tmp_name']);
+            editAvatar($_FILES['avatar']['name'],$_FILES['avatar']['tmp_name'], $_FILES['avatar']['size'] );
         }
         elseif($_GET['action']=='newEpisode'){
             pageNewEpisode();
@@ -94,6 +95,9 @@ try {
         }
         elseif($_GET['action']=='cancelReport'){
             cancelReport($_GET['id']);
+        }
+        elseif ($_GET['action']=='lolScore') {
+            getlolScore();
         }
     }
     else{
