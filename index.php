@@ -1,11 +1,14 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+require "vendor/autoload.php";
 
 require('controller/CommentFrontend.php');
 require('controller/PostFrontend.php');
 require('controller/UserFrontend.php');
-require('controller/ScoreController.php');
+require('controller/LotrController.php');
 
 
 try {
@@ -23,7 +26,8 @@ try {
         }
         elseif($_GET['action']=='addComment'){
             if(isset($_GET['id']) && $_GET['id']>0){
-                addComment($_GET['id'],$_POST['auteur'],$_POST['commentaire']);
+                session_start();
+                addComment($_GET['id'],$_POST['commentaire'], $_SESSION['id']);
             }
             else{
                 throw new Exception('Tous les champs ne sont pas remplis');
@@ -96,12 +100,18 @@ try {
         elseif($_GET['action']=='cancelReport'){
             cancelReport($_GET['id']);
         }
-        elseif ($_GET['action']=='lolScore') {
-            getlolScore();
+        elseif ($_GET['action']=='movies') {
+            getMovies();
+        }
+        elseif ($_GET['action']=='character') {
+            getCharacters();
+        }
+        elseif ($_GET['action']=='tavern') {
+            getTavern();
         }
     }
     else{
-        listEpisodes();
+        home();
     }
 }
 catch(Exception $e){

@@ -1,15 +1,13 @@
 <?php
 
-namespace P4\model;
-
-require_once("model/Manager.php");
+namespace Model;
 
 class PostManager extends Manager
 {
     public function getEpisodes()
     {
         $db = $this->dbConnect();
-        $req = $db ->query('SELECT id, titre, contenu, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM episode ORDER BY numeroChapitre DESC');
+        $req = $db ->query('SELECT id, titre, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM episode ORDER BY creation_date_fr DESC');
 
         return $req;
     }
@@ -17,7 +15,7 @@ class PostManager extends Manager
     public function getEpisode($episodeId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, titre, contenu, numeroChapitre, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM episode WHERE id = ?');
+        $req = $db->prepare('SELECT id, titre, contenu, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM episode WHERE id = ?');
         $req->execute(array($episodeId));
         $episode = $req->fetch();
 

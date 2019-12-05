@@ -1,8 +1,6 @@
 <?php
 
-use \P4\model\UserManager;
-
-require_once('model/UserManager.php');
+use Model\UserManager;
 
 
 function pageInscription()

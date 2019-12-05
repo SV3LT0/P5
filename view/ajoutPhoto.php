@@ -2,7 +2,7 @@
 <?php session_start(); ?>
 <?php ob_start(); ?>
 
-<p><a class="link" href="index.php?action=editerProfil">Retour</a></p>
+<p><a class="link" href="javascript:history.back()">Retour</a></p>
 
 <h3>Modifiez votre photo de profil</h3>
 

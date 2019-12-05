@@ -1,26 +1,27 @@
 <?php
 
-use \P4\model\PostManager;
-use \P4\model\CommentManager;
+use Model\PostManager;
+use Model\CommentManager;
+use Model\UserManager;
 
-require_once('model/CommentManager.php');
-require_once('model/PostManager.php');
 
 function post()
 {
     $postManager = new PostManager();
     $commentManager = new CommentManager();
+    $userManager = new UserManager();
 
+    $users = $userManager->getUser();
     $episode = $postManager->getEpisode($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);
 
     require('view/postView.php');
 }
 
-function addComment($episodeId, $auteur, $comment)
+function addComment($episodeId, $comment, $idAuteur)
 {
     $commentManager = new CommentManager();    
-    $affectedLines = $commentManager->postComment($episodeId, $auteur, $comment);
+    $affectedLines = $commentManager->postComment($episodeId, $comment, $idAuteur);
 
     if($affectedLines === false){
         throw new Exception('Impossible d\'ajouter le commentaire');

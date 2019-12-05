@@ -1,8 +1,7 @@
 <?php
 
-namespace P4\model;
+namespace Model;
 
-require_once("model/Manager.php");
 
 class UserManager extends Manager
 {
@@ -60,8 +59,17 @@ class UserManager extends Manager
         $ajoutAvatar = $req->execute(array('avatar'=>$avatarName, 'id'=>$idUser));
 
         return $ajoutAvatar;
-    }  
+    } 
 
+    public function getUser()
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, pseudo, avatar FROM utilisateur');
+        $req->execute();
+        $getUsers = $req->fetchAll();
+        
+        return $getUsers;
+    }
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\model;
+namespace Model;
 
 class Manager
 {

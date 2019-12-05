@@ -1,11 +1,7 @@
 <?php
 
-use \P4\model\PostManager;
-use \P4\model\CommentManager;
-
-require_once('model/CommentManager.php');
-require_once('model/PostManager.php');
-
+use Model\PostManager;
+use Model\CommentManager; 
 
 function listEpisodes()
 {

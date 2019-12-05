@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-<p><a class="link" href="index.php">Retour</a></p>
+<p><a class="link" href="javascript:history.back()">Retour</a></p>
 
 <h3>Inscription</h3>
 <form action="index.php?action=addUser" method="post">

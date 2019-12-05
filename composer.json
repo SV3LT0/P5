@@ -1,0 +1,16 @@
+{
+    "name": "ltommy/p5",
+    "authors": [
+        {
+            "name": "Tommy Lutz",
+            "email": "ltommy@hotmail.fr"
+        }
+    ],
+    "require": {},
+
+    "autoload": {
+        "psr-4" : {
+            "Model\\" : "model/"
+        }
+    }
+}

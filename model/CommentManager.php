@@ -1,25 +1,24 @@
 <?php
 
-namespace P4\model;
+namespace Model;
 
-require_once("model/Manager.php");
 
 class CommentManager extends Manager
 {
     public function getComments($episodeId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT id, auteur, contenu, idEpisode, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM commentaire WHERE idEpisode = ? ORDER BY dateComm DESC');
+        $comments = $db->prepare('SELECT id, contenu, idTopic, idAuteur, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM post WHERE idTopic = ? ORDER BY dateComm DESC');
         $comments->execute(array($episodeId));
-    
+
         return $comments;
     }
     
-    public function postComment($episodeId, $auteur, $comment)
+    public function postComment($episodeId, $comment, $idAuteur)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO commentaire(idEpisode, auteur, contenu, dateComm, signale)VALUES(:idEpisode,:auteur,:contenu,NOW(),0)');
-        $affectedLines = $req->execute(array('idEpisode'=>$episodeId,'auteur'=>$auteur,'contenu'=>$comment));
+        $req = $db->prepare('INSERT INTO post(idTopic, idAuteur, contenu, dateComm, signale)VALUES(:idEpisode,:idAuteur,:contenu, :avatar,NOW(),0)');
+        $affectedLines = $req->execute(array('idEpisode'=>$episodeId,'contenu'=>$comment,'idAuteur'=>$idAuteur));
     
         return $affectedLines;
     }
@@ -27,7 +26,7 @@ class CommentManager extends Manager
     public function deleteComment($id)
     {
         $db = $this->dbConnect();
-        $deleteComment = $db->prepare('DELETE FROM commentaire WHERE id=:id');
+        $deleteComment = $db->prepare('DELETE FROM post WHERE id=:id');
         $affectedLines = $deleteComment->execute(array('id'=>$id));
 
         return $affectedLines;
@@ -36,24 +35,24 @@ class CommentManager extends Manager
     public function signaleCommentaire($id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE commentaire SET signale=1 WHERE id=:id');
+        $req = $db->prepare('UPDATE post SET signale=1 WHERE id=:id');
         $commentSignale = $req->execute(array('id'=>$id));
 
         return $commentSignale;
     }
-    
+
     public function getCommentsReported()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, auteur, contenu, idEpisode, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM commentaire WHERE signale = 1');
-        
+        $req = $db->query('SELECT id, auteur, contenu, idTopic, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM post WHERE signale = 1');
+
         return $req;
     }
-    
+
     public function countCommReport()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT COUNT(*) FROM commentaire WHERE signale = 1');
+        $req = $db->query('SELECT COUNT(*) FROM post WHERE signale = 1');
         $nbCommentaireReported = $req->fetchColumn();
 
         return $nbCommentaireReported;
@@ -62,7 +61,7 @@ class CommentManager extends Manager
     public function annuleSignale($id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE commentaire SET signale=0 WHERE id=:id');
+        $req = $db->prepare('UPDATE post SET signale=0 WHERE id=:id');
         $annuleSignale = $req->execute(array('id'=>$id));
 
         return $annuleSignale;
@@ -71,7 +70,7 @@ class CommentManager extends Manager
     public function deleteCommEp($idEp)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('DELETE FROM commentaire WHERE idEpisode = :idEp');
+        $req = $db->prepare('DELETE FROM post WHERE idTopic = :idEp');
         $deleteCommEp = $req->execute(array('idEp'=>$idEp));
 
         return $deleteCommEp;

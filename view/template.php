@@ -16,30 +16,29 @@
 
     <body>
         <header id='header'>
-            <h1>E-SCORE</h1>
-                <ul>
-                    <li><a href="index.php?action=lolScore"><button type="button" class="btn btn-info">LOL</button></a></li>
-                    <li><a href=""><button type="button" class="btn btn-info">CS:GO</button></a></li>
-                    <li><a href=""><button type="button" class="btn btn-info">DOTA2</button></a></li>
-                    <li><a href=""><button type="button" class="btn btn-info">OVERWATCH</button></a></li>
-                </ul>
+            <a id="lienHome" href="index.php"><h1>Les Terres du Milieu</h1></a>
+                <div id="onglets">
+                    <a class="btn btn-dark" href="index.php?action=movies">FILMS</a>
+                    <a class="btn btn-dark" href="index.php?action=character">PERSONNAGES</a>
+                    <a class="btn btn-dark" href="index.php?action=tavern">TAVERNE</a>
+                </div>
                     <div id="compte">
                         <?php
                             if(isset($_SESSION['pseudo'])){ ?>
                                 <img src="public/img/<?=$_SESSION['avatar']?>" alt="avatar"><br>
-                                <p>Bonjour <?php echo $_SESSION['pseudo'];?> <br>
+                                <p>Hello <?php echo $_SESSION['pseudo'];?> <br>
                                 <a href="index.php?action=deconnexion"><button type="button" class="btn btn-dark">Déconnexion</button></a>
-                                <a href="index.php?action=editerProfil"><button type="button" class="btn btn-dark">Éditer Profil</button></a></p>
+                                <a href="index.php?action=editerProfil"><button type="button" class="btn btn-dark">Editer Profil</button></a></p>
                             <?php
                             } elseif (!isset($_GET['action']) or $_GET['action']!='inscription'){
                             ?> 
                                 <form action= "index.php?action=connexion" method="post">
-                                    <label for='pseudo'> Pseudo </label>
+                                    <label for='pseudo'>Pseudo</label>
                                     <input type='text' name='pseudo' id='pseudo'/><br/>
                                     <label for='mdp'>Mot de Passe</label>
                                     <input type='password'name='mdp' id='mdp'/><br/>                
                                     <input class="btn btn-dark" type='submit' value="Connexion"/>
-                                    <a href="index.php?action=inscription"><button type="button" class="btn btn-dark">Inscription</button></a><br/>     
+                                    <a class="btn btn-dark" href="index.php?action=inscription">S'inscire</a><br/>     
                                 </form>
                                 <?php
                             } ?>
@@ -48,5 +47,8 @@
         <section>
             <?= $content ?>
         </section>
+        
+        <script src="public/js/app.js" ></script>
+
     </body>
 </html>
