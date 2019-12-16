@@ -5,20 +5,20 @@ namespace Model;
 
 class CommentManager extends Manager
 {
-    public function getComments($episodeId)
+    public function getComments($SujetId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT id, contenu, idTopic, idAuteur, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM post WHERE idTopic = ? ORDER BY dateComm DESC');
-        $comments->execute(array($episodeId));
+        $comments = $db->prepare('SELECT id, contenu, idTopic, idAuteur, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM post WHERE idTopic = ? ORDER BY dateComm');
+        $comments->execute(array($SujetId));
 
         return $comments;
     }
     
-    public function postComment($episodeId, $comment, $idAuteur)
+    public function postComment($sujetId, $comment, $idAuteur)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO post(idTopic, idAuteur, contenu, dateComm, signale)VALUES(:idEpisode,:idAuteur,:contenu, :avatar,NOW(),0)');
-        $affectedLines = $req->execute(array('idEpisode'=>$episodeId,'contenu'=>$comment,'idAuteur'=>$idAuteur));
+        $req = $db->prepare('INSERT INTO post(idTopic, idAuteur, contenu, dateComm, signale)VALUES(:idTopic,:idAuteur,:contenu,NOW(),0)');
+        $affectedLines = $req->execute(array('idTopic'=>$sujetId,'contenu'=>$comment,'idAuteur'=>$idAuteur));
     
         return $affectedLines;
     }
@@ -42,9 +42,9 @@ class CommentManager extends Manager
     }
 
     public function getCommentsReported()
-    {
+    { 
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, auteur, contenu, idTopic, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM post WHERE signale = 1');
+        $req = $db->query('SELECT id, idAuteur, contenu, idTopic, signale, DATE_FORMAT(dateComm, "%d/%m/%Y à %Hh%imin%ss")AS comment_date FROM post WHERE signale = 1');
 
         return $req;
     }

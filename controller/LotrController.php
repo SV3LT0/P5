@@ -1,7 +1,8 @@
 <?php
 
 use Model\PostManager;
-use Model\CommentManager; 
+use Model\CommentManager;
+use Model\UserManager;
 
 function home()
 {
@@ -22,12 +23,12 @@ function getTavern()
 {
     $postManager = new PostManager();
     $commentManager = new CommentManager();
+    $userManager = new UserManager();
 
-    $episodes = $postManager->getEpisodes();    
+    $Sujets = $postManager->getSujets();    
     $commentsReported = $commentManager->getCommentsReported();
     $nbCommReport = $commentManager-> countCommReport();
+    $users = $userManager->getUser();
     
     require('view/pageTavern.php');
 }
-
-

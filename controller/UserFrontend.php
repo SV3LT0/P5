@@ -8,6 +8,11 @@ function pageInscription()
     require('view/inscription.php');
 }
 
+function pageConnexion()
+{
+    require('view/connexion.php');
+}
+
 function addUser($pseudo, $mdp)
 {
     $userManager = new UserManager();
@@ -68,6 +73,7 @@ function editerUser($newPseudo, $newMdp1, $newMdp2, $idUser, $oldPseudo)
  
     if (!empty($newPseudo) && $newPseudo!=$oldPseudo) {
         $editPseudo = $userManager->editPseudo($newPseudo, $idUser);
+        $_SESSION['pseudo'] = $newPseudo;
     }
     if (!empty($newMdp1) && !empty($newMdp2)) {
         if($newMdp1==$newMdp2){
@@ -79,7 +85,7 @@ function editerUser($newPseudo, $newMdp1, $newMdp2, $idUser, $oldPseudo)
         }
     }
 
-    header('Location: index.php');
+    require('view/compteEdit.php');
 }
 
 function pageAvatar()

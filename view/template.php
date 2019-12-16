@@ -25,22 +25,16 @@
                     <div id="compte">
                         <?php
                             if(isset($_SESSION['pseudo'])){ ?>
-                                <img src="public/img/<?=$_SESSION['avatar']?>" alt="avatar"><br>
-                                <p>Hello <?php echo $_SESSION['pseudo'];?> <br>
-                                <a href="index.php?action=deconnexion"><button type="button" class="btn btn-dark">Déconnexion</button></a>
-                                <a href="index.php?action=editerProfil"><button type="button" class="btn btn-dark">Editer Profil</button></a></p>
+                                <img id="avatar" src="public/img/<?=$_SESSION['avatar']?>" alt="avatar"><br>
+                                <p>Salut <?php echo $_SESSION['pseudo'];?> <br>
+                                <a class="btn btn-dark" href="index.php?action=deconnexion" >Déconnexion</a>
+                                <a class="btn btn-dark" href="index.php?action=editerProfil" >Editer Profil</a></p>
                             <?php
-                            } elseif (!isset($_GET['action']) or $_GET['action']!='inscription'){
+                            } else {
                             ?> 
-                                <form action= "index.php?action=connexion" method="post">
-                                    <label for='pseudo'>Pseudo</label>
-                                    <input type='text' name='pseudo' id='pseudo'/><br/>
-                                    <label for='mdp'>Mot de Passe</label>
-                                    <input type='password'name='mdp' id='mdp'/><br/>                
-                                    <input class="btn btn-dark" type='submit' value="Connexion"/>
-                                    <a class="btn btn-dark" href="index.php?action=inscription">S'inscire</a><br/>     
-                                </form>
-                                <?php
+                                <a class="btn btn-dark" href="index.php?action=pageConnexion">Connexion</a><br/>
+                                <a class="btn btn-dark" href="index.php?action=inscription">Inscription</a><br/>
+                            <?php
                             } ?>
                     </div>
         </header>
@@ -48,7 +42,7 @@
             <?= $content ?>
         </section>
         
-        <script src="public/js/app.js" ></script>
-
+        <script src="public/js/User.js" ></script>
+        <script src="public/js/App.js" ></script>
     </body>
 </html>

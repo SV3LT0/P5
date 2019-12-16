@@ -1,13 +1,13 @@
-<?php $title = "Billet simple pour l'Alaska"; ?>
+<?php $title = "Nouveau Sujet"; ?>
 <?php session_start(); ?>
 <?php ob_start(); ?>
 
 
 <p><a class="link" href="javascript:history.back()">Retour</a></p>
 
-<h3>Ecriture d'un nouvel sujet</h3>
+<h2>Ecriture d'un nouveau sujet</h2>
 
-<form action="index.php?action=addEpisode" method="post">
+<form action="index.php?action=addSujet" method="post">
     <label for="titre">Titre</label>
     <input type="text" name="titre" id="titre"/><br>
     <label for="contenu"></label>

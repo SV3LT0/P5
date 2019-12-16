@@ -1,19 +1,20 @@
-<?php $title = htmlspecialchars($episode['titre']); ?>
+<?php $title = htmlspecialchars($Sujet['titre']); ?>
 <?php session_start(); ?>
 <?php ob_start(); ?>
 <p><a class="link" href="javascript:history.back()">Retour</a></p>
 
 <div>
-    <h3>
-        <?= htmlspecialchars($episode['titre'])?>
-    </h3>
+    <h2>
+        <?= htmlspecialchars($Sujet['titre'])?>
+    </h2>
 </div>
 
 <?php 
 
 while ($comment = $comments->fetch())
 {
-    foreach ($users as $user)
+    ?> <div class = "contenuMsg">
+    <?php foreach ($users as $user)
     {
         if ($user['id']===$comment['idAuteur']) {?>
             <p><img class="imgComm"  src="public/img/<?=$user['avatar']?>" alt="avatar">
@@ -23,21 +24,22 @@ while ($comment = $comments->fetch())
     }
     ?>
     </strong> le <?= $comment['comment_date'] ?>
-    <a class="link" href="index.php?action=reportComm&amp;id=<?=$comment['id']?>&amp;idEpisode=<?=$comment['idTopic']?>">Signaler</a>
+    <a class="link" href="index.php?action=reportComm&amp;id=<?=$comment['id']?>&amp;idSujet=<?=$comment['idTopic']?>">Signaler</a>
     <?php 
     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']==1) { ?>
-    <a class="link" href="index.php?action=deleteComm&amp;id=<?=$comment['id']?>&amp;idEpisode=<?=$comment['idTopic']?>">Supprimer</a></p>
+    <a class="link" href="index.php?action=deleteComm&amp;id=<?=$comment['id']?>&amp;idSujet=<?=$comment['idTopic']?>">Supprimer</a></p>
     <?php
     }
     ?>
-    <p class="contenuMsg"><?= nl2br(htmlspecialchars($comment['contenu'])) ?></p>
+    <?= $comment['contenu'] ?>
+    </div>
 <?php
 
 }
 $comments->closeCursor();
 ?>
 
-<form id="formComm" action= "index.php?action=addComment&amp;id=<?=$episode['id']?>" method="post">
+<form id="formComm" action= "index.php?action=addComment&amp;id=<?=$Sujet['id']?>" method="post">
     <?php
     if(isset($_SESSION['pseudo'])){?>
         <div id = "invisible">
@@ -54,7 +56,7 @@ $comments->closeCursor();
 </form>
     <?php
     }else{?>
-        <p><em>Connectez-vous ou inscrivez-vous pour répondre au sujet</em></p>
+        <p><em>Connectez-vous ou inscrivez-vous pour répondre au Sujet</em></p>
         <?php
     }
         ?>

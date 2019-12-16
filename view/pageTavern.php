@@ -2,22 +2,33 @@
 <?php session_start(); ?>
 <?php ob_start(); ?>
 
+<p><a class="link" href="index.php">Retourner à l'accueil</a><br>
 <h2>Bienvenue à la Taverne</h2>
 <?php 
 if (isset($_SESSION['pseudo'])) { ?>
-    <a href="index.php?action=newEpisode"><button type="button" id="createTopic" class="btn btn-dark">Créer un nouveau sujet</button></a><br/>
+    <a href="index.php?action=newSujet"class="btn btn-dark">Créer un nouveau Sujet</a><br/>
     <?php
     if($_SESSION['isAdmin']==1){
         if($nbCommReport>0){
+            ?>
+            <h4>Messages Signalés</h4>
+            <div id="commSignale">
+            <?php 
             while($commSignale = $commentsReported->fetch())
             {
-                ?>
-                <h4>Messages Signalés</h4>
-                <div id="commSignale">
-                    <p><strong><?= htmlspecialchars($commSignale['auteur']) ?></strong> le <?= $commSignale['comment_date'] ?> 
-                    <a class="link" href="index.php?action=deleteComm&amp;id=<?=$commSignale['id']?>&amp;idEpisode=<?=$commSignale['idEpisode']?>">Supprimer</a>
+                foreach ($users as $user)
+                {
+                    if ($user['id']== $commSignale['idAuteur']) 
+                    {?>
+                        <p><img class="imgComm"  src="public/img/<?=$user['avatar']?>" alt="avatar">
+                        <strong><?= htmlspecialchars($user['pseudo'])?></strong>
+                    <?php
+                    } 
+                } ?>
+                    le <?= $commSignale['comment_date'] ?> 
+                    <a class="link" href="index.php?action=deleteComm&amp;id=<?=$commSignale['id']?>&amp;idSujet=<?=$commSignale['idTopic']?>">Supprimer</a>
                     <a class="link" href="index.php?action=cancelReport&amp;id=<?=$commSignale['id']?>">Retirer le signalement</a></p>
-                    <p><?= nl2br(htmlspecialchars($commSignale['contenu'])) ?></p>
+                    <p><?= $commSignale['contenu'] ?></p>
                 </div>
             <?php
             }
@@ -29,7 +40,7 @@ if (isset($_SESSION['pseudo'])) { ?>
 ?>
 <?php
 } else { ?>
-     <p><em>Connectez-vous ou inscrivez-vous pour créer un nouveau sujet</em></p>
+     <p><em>Connectez-vous ou inscrivez-vous pour créer un nouveau Sujet</em></p>
 <?php
 }
 ?>
@@ -43,18 +54,18 @@ if (isset($_SESSION['pseudo'])) { ?>
     </thead>
     <tbody>
 <?php
-while ($data = $episodes->fetch())
+while ($data = $Sujets->fetch())
 {
 ?>
 
 <tr>
-    <td>L'auteur</td>
+    <td><?=$data['auteur']?></td>
     <td><a class="link" href="index.php?action=post&amp;id=<?=$data['id'] ?>"><?= htmlspecialchars($data['titre']) ?></a></td>
     <td><em> le <?=$data['creation_date_fr'] ?></em></td>
     <?php 
     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']==1) { ?>
     <td>
-            <a class="link" href="index.php?action=supprimer&amp;id=<?=$data['id'] ?>">Supprimer sujet</a>
+            <a class="link" href="index.php?action=supprimer&amp;id=<?=$data['id'] ?>">Supprimer Sujet</a>
     </td>
             <?php 
             } 
@@ -62,7 +73,7 @@ while ($data = $episodes->fetch())
 </tr>
 <?php
 }
-$episodes->closeCursor();
+$Sujets->closeCursor();
 ?>
     </tbody>
     </table>

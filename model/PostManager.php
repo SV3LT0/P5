@@ -4,49 +4,68 @@ namespace Model;
 
 class PostManager extends Manager
 {
-    public function getEpisodes()
+    public function getSujets()
     {
         $db = $this->dbConnect();
-        $req = $db ->query('SELECT id, titre, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM episode ORDER BY creation_date_fr DESC');
+        $req = $db ->query('SELECT id, titre, auteur, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM Sujet ORDER BY creation_date_fr DESC');
 
         return $req;
     }
 
-    public function getEpisode($episodeId)
+    public function getSujet($SujetId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, titre, contenu, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM episode WHERE id = ?');
-        $req->execute(array($episodeId));
-        $episode = $req->fetch();
+        $req = $db->prepare('SELECT id, titre, DATE_FORMAT(creation_date, "%d/%m/%Y")AS creation_date_fr FROM Sujet WHERE id = ?');
+        $req->execute(array($SujetId));
+        $Sujet = $req->fetch();
 
-        return $episode;
+        return $Sujet;
     }
 
-    public function newEpisode($titre, $contenu, $numeroChapitre)
+    public function getSujetByTitle($titre)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO episode(titre, contenu, creation_date, numeroChapitre)VALUES(:titre,:contenu,CURDATE(),:numeroChapitre)');
-        $nouvelEpisode = $req->execute(array('titre'=>$titre, 'contenu'=>$contenu, 'numeroChapitre'=>$numeroChapitre));
+        $req = $db->prepare('SELECT id FROM Sujet WHERE titre = ?');
+        $req->execute(array($titre));
+        $Sujet = $req->fetch();
+
+        return $Sujet;
+    }
+
+    public function newSujet($titre, $auteur)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO Sujet(titre, auteur, creation_date)VALUES(:titre, :auteur, CURDATE())');
+        $nouvelSujet = $req->execute(array('titre'=>$titre, 'auteur'=> $auteur));
         
-        return $nouvelEpisode;
+        return $nouvelSujet;
     }
 
-    public function modifierEpisode($titre, $contenu, $id, $numeroChapitre)
+    public function modifierSujet($titre, $contenu, $id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE episode SET titre=:titre, contenu=:contenu, creation_date=CURDATE(), numeroChapitre=:numeroChapitre WHERE id=:id');
-        $updateEpisode = $req->execute(array('titre'=>$titre, 'contenu'=>$contenu, 'numeroChapitre'=>$numeroChapitre, 'id'=>$id));
+        $req = $db->prepare('UPDATE Sujet SET titre=:titre, contenu=:contenu, creation_date=CURDATE() WHERE id=:id');
+        $updateSujet = $req->execute(array('titre'=>$titre, 'contenu'=>$contenu, 'id'=>$id));
         
-        return $updateEpisode;
+        return $updateSujet;
     }
 
-    public function deletEpisode($id)
+    public function deletSujet($id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('DELETE FROM episode WHERE id = :id');
-        $deleteEpisode = $req->execute(array('id'=>$id));
+        $req = $db->prepare('DELETE FROM Sujet WHERE id = :id');
+        $deleteSujet = $req->execute(array('id'=>$id));
 
-        return $deleteEpisode;
+        return $deleteSujet;
+    }
+
+    public function updateDate($id)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE Sujet SET creation_date=CURDATE() WHERE id=:id');
+        $updateDate = $req->execute(array('id'=>$id));
+        
+        return $updateDate;
     }
 }
 

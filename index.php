@@ -13,8 +13,8 @@ require('controller/LotrController.php');
 
 try {
     if(isset($_GET['action'])){
-        if($_GET['action'] == 'listEpisodes'){
-            listEpisodes();
+        if($_GET['action'] == 'listSujets'){
+            listSujets();
         }
         elseif($_GET['action'] == 'post'){
             if(isset($_GET['id']) && $_GET['id']>0){
@@ -25,19 +25,17 @@ try {
             }
         }
         elseif($_GET['action']=='addComment'){
-            if(isset($_GET['id']) && $_GET['id']>0){
-                session_start();
-                addComment($_GET['id'],$_POST['commentaire'], $_SESSION['id']);
-            }
-            else{
-                throw new Exception('Tous les champs ne sont pas remplis');
-            }
+            session_start();
+            addComment($_GET['id'],$_POST['commentaire'], $_SESSION['id']);
         }
         elseif($_GET['action']=='inscription'){
             pageInscription();
         }
+        elseif($_GET['action']=='pageConnexion'){
+            pageConnexion();
+        }
         elseif($_GET['action']=='addUser'){
-            if(!preg_match('#^(?=.*[a-z])(?=.*[0-9])#',$_POST['mdp'])){
+            if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{6,}$#',$_POST['mdp'])){
                 throw new Exception('Mot de passe non conforme');
             }
             elseif($_POST['mdp']!=$_POST['verifMdp']) {
@@ -57,8 +55,10 @@ try {
             pageEditionProfil();
         }
         elseif($_GET['action']=='editUser'){
-            session_start();
-            editerUser($_POST['newPseudo'],$_POST['newMdp1'], $_POST['newMdp2'], $_SESSION['id'], $_SESSION['pseudo']);
+            if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{6,}$#',$_POST['newMdp1'])){
+                session_start();
+                editerUser($_POST['newPseudo'],$_POST['newMdp1'], $_POST['newMdp2'], $_SESSION['id'], $_SESSION['pseudo']);
+            }
         }
         elseif($_GET['action']=='pageAvatar'){
             pageAvatar();
@@ -66,15 +66,16 @@ try {
         elseif($_GET['action']=='editAvatar'){
             editAvatar($_FILES['avatar']['name'],$_FILES['avatar']['tmp_name'], $_FILES['avatar']['size'] );
         }
-        elseif($_GET['action']=='newEpisode'){
-            pageNewEpisode();
+        elseif($_GET['action']=='newSujet'){
+            pageNewSujet();
         }
-        elseif($_GET['action']=='addEpisode'){
-            addNewEpisode($_POST['titre'],$_POST['contenu'],$_POST['chapitre']);
+        elseif($_GET['action']=='addSujet'){
+            session_start();
+            addNewSujet($_POST['titre'],$_POST['contenu'], $_SESSION['id'], $_SESSION['pseudo']);
         }
         elseif($_GET['action']=='deleteComm'){
             if(isset($_GET['id']) && $_GET['id']>0){
-                deleteComm($_GET['id'], $_GET['idEpisode']);
+                deleteComm($_GET['id'], $_GET['idSujet']);
             }
             else {
                 throw new Exception('Ce commentaire n\'existe pas');
@@ -89,13 +90,13 @@ try {
             }
         }
         elseif($_GET['action']=='update'){
-            updateEpisode($_POST['titre'],$_POST['contenu'],$_GET['id'], $_POST['chapitre']);
+            updateSujet($_POST['titre'],$_POST['contenu'],$_GET['id'], $_POST['chapitre']);
         }
         elseif ($_GET['action']=='supprimer') {
-            supprimerEpisode($_GET['id']);
+            supprimerSujet($_GET['id']);
         }
         elseif($_GET['action']=='reportComm'){
-            reportComm($_GET['id'],$_GET['idEpisode']);
+            reportComm($_GET['id'],$_GET['idSujet']);
         }
         elseif($_GET['action']=='cancelReport'){
             cancelReport($_GET['id']);

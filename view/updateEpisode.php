@@ -6,13 +6,13 @@
 
 <h3>Modification du chapitre</h3>
 
-<form action= "index.php?action=update&amp;id=<?=$episode['id']?>" method="post">
+<form action= "index.php?action=update&amp;id=<?=$Sujet['id']?>" method="post">
     <label for="chapitre">Numéro de chapitre</label>
-    <input type="number" name="chapitre" id="chapitre" min="1" max="250" value='<?=$episode['numeroChapitre'] ?>'/><br>
+    <input type="number" name="chapitre" id="chapitre" min="1" max="250" value='<?=$Sujet['numeroChapitre'] ?>'/><br>
     <label for="titre">Titre</label>
-    <input type="text" name="titre" id="titre" value='<?=$episode['titre']?>'/><br>
+    <input type="text" name="titre" id="titre" value='<?=$Sujet['titre']?>'/><br>
     <label for="contenu"></label>
-    <textarea name="contenu" id="mytextarea"><?=$episode['contenu']?></textarea><br>
+    <textarea name="contenu" id="mytextarea"><?=$Sujet['contenu']?></textarea><br>
     <input class="btn btn-light" type="submit"/>
 </form>
 

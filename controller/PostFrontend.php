@@ -3,44 +3,32 @@
 use Model\PostManager;
 use Model\CommentManager; 
 
-function listEpisodes()
-{
-    $postManager = new PostManager();
-    $commentManager = new CommentManager();
-
-    $episodes = $postManager->getEpisodes();    
-    $commentsReported = $commentManager->getCommentsReported();
-    $nbCommReport = $commentManager-> countCommReport();
-
-    require('view/listEpisodeView.php');
-}
-
 function pageUpdate()
 {
     $postManager = new PostManager();
 
-    $episode = $postManager->getEpisode($_GET['id']);
+    $Sujet = $postManager->getSujet($_GET['id']);
   
-    require('view/updateEpisode.php');
+    require('view/updateSujet.php');
 }
 
-function supprimerEpisode($idEpisode)
+function supprimerSujet($idSujet)
 {
     $postManager = new PostManager();
     $commentManager = new CommentManager();
 
-    $deleteEpisode = $postManager->deletEpisode($idEpisode);
-    $deleteCommEp = $commentManager-> deleteCommEp($idEpisode);
+    $deleteSujet = $postManager->deletSujet($idSujet);
+    $deleteCommEp = $commentManager-> deleteCommEp($idSujet);
 
-    header('Location: index.php');
+    header('Location: index.php?action=tavern');
 }
 
-function updateEpisode($titre, $contenu, $id, $numeroChapitre)
+function updateSujet($titre, $contenu, $id, $numeroChapitre)
 {
     $postManager = new PostManager();
-    $updateEpisode = $postManager->modifierEpisode($titre, $contenu, $id, $numeroChapitre);
+    $updateSujet = $postManager->modifierSujet($titre, $contenu, $id, $numeroChapitre);
 
-    if($updateEpisode === false){
+    if($updateSujet === false){
         throw new Exception ('Impossible de modifier l\'épisode');
     }
     else{
@@ -48,21 +36,23 @@ function updateEpisode($titre, $contenu, $id, $numeroChapitre)
     }
 }
 
-function pageNewEpisode()
+function pageNewSujet()
 {
-    require('view/newEpisode.php');
+    require('view/newSujet.php');
 }
 
-function addNewEpisode($titre, $contenu, $numeroChapitre)
+function addNewSujet($titre, $contenu, $idPseudo, $auteur)
 {
-    
     $postManager = new PostManager();
-    $nouvelEpisode = $postManager->newEpisode($titre, $contenu, $numeroChapitre);
+    $commentManager = new CommentManager();
+    $nouveauSujet = $postManager->newSujet($titre, $auteur);
+    $getSujet = $postManager->getSujetByTitle($titre);
+    $addContenu = $commentManager->postComment($getSujet['id'], $contenu, $idPseudo);
 
-    if($nouvelEpisode === false){
-        throw new Exception ('Impossible d\'ajouter l\'épisode');
+    if ($nouveauSujet === false){
+        throw new Exception ('Impossible d\'ajouter le sujet');
     }
     else{
-        header('Location: index.php');
+        header('Location: index.php?action=tavern');
     }
 }

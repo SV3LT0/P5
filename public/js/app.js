@@ -7,8 +7,7 @@ class App {
 
         this.h = new Headers();
         this.h.append('Authorization', 'Bearer '+token)
-
-        
+        this.img = document.createElement('img')
 
         this.initApiFilm(this.zoneMovies);
         this.initApiPerso(this.zonePerso);
@@ -28,21 +27,69 @@ class App {
             let films = data
             data.docs.forEach(film => {
                 console.log(film.name);
+                let img = document.createElement('img')
+                switch (film.name) {
+                    case 'The Lord of the Rings Series':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/lotr.png' 
+                        break;
+                
+                    case'The Hobbit Series':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/thehobbit.png' 
+                        break;
+
+                    case'The Unexpected Journey':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/hobbit1.png' 
+                        break;
+
+                    case'The Desolation of Smaug':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/hobbit2.png' 
+                        break;
+
+                    case'The Battle of the Five Armies':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/hobbit3.png' 
+                        break;
+
+                    case'The Two Towers ':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/lotr2.png' 
+                        break;
+
+                    case'The Fellowship of the Ring':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/lotr3.png' 
+                        break;
+
+                    case'The Return of the King':
+                    img.className = 'filmImg'
+                    img.src = 'public/img/lotr4.png' 
+                        break;
+                }
                 let titreFilm = document.createElement("h3");
                 titreFilm.textContent= film.name;
                 zoneMovies.appendChild(titreFilm);
+                let divFilm = document.createElement('div');
+                divFilm.className = "divFilm"
+                divFilm.appendChild(img);
+                let list = document.createElement('ul')
                 let infoNomination = document.createElement("li");
                 infoNomination.textContent= "Nominations aux Oscars : "+film.academyAwardNominations;
-                zoneMovies.appendChild(infoNomination);
+                list.appendChild(infoNomination);
                 let infoAwards = document.createElement("li");
                 infoAwards.textContent= "Oscars remportés  : "+film.academyAwardWins;
-                zoneMovies.appendChild(infoAwards);
+                list.appendChild(infoAwards);
                 let infoBoxOffice = document.createElement("li");
                 infoBoxOffice.textContent= "Box Office : "+film.boxOfficeRevenueInMillions+" M";
-                zoneMovies.appendChild(infoBoxOffice);
+                list.appendChild(infoBoxOffice);
                 let infoBudget = document.createElement("li");
                 infoBudget.textContent= "Budget : "+film.budgetInMillions+" M$";
-                zoneMovies.appendChild(infoBudget);
+                list.appendChild(infoBudget);
+                divFilm.appendChild(list);
+                zoneMovies.appendChild(divFilm)
             });
         })
     };
@@ -54,22 +101,22 @@ class App {
             method:'GET',
             headers: this.h
             })
-        .then(function(response){
+        .then((response)=>{
             return response.json()
-        }).then(function(data){
+        }).then((data)=>{
             console.log(data);
             let p=1;
             let i=1;
-            app.createTable(p);
+            this.createTable(p);
             data.docs.forEach(perso => {
                 if (i<50) {
                     i++;
-                    app.addLine(p, perso);
+                    this.addLine(p, perso);
                 }else{
                     i=1
                     p++
-                    app.createTable(p);
-                    app.addLine(p, perso);
+                    this.createTable(p);
+                    this.addLine(p, perso);
                     let nav = document.getElementById('navPerso');
                     let lienNav = document.createElement('a');
                     lienNav.href = "javascript: onClick=app.showPage("+p+")";
@@ -151,4 +198,5 @@ class App {
     }
 }
 
-const app = new App("https://the-one-api.herokuapp.com/v1/","sapf15QSPoXlNfGFYoWu")
+
+const app = new App("https://the-one-api.herokuapp.com/v1/","sapf15QSPoXlNfGFYoWu");

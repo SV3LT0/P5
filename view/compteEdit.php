@@ -1,12 +1,12 @@
-<?php $title = "Middle Earth"; ?>
-<?php session_start(); ?>
+<?php $title = 'Confirmation'; ?>
+<?php $connexion ='';?>
+
 <?php ob_start(); ?>
 
 <p><a class="link" href="index.php">Retourner à l'accueil</a><br>
-<h2 id="">Films</h2>
-    <div id="movies">
-        
-    </div>
+<span id="confirmation">Votre Compte a bien été modifié</span></p>
+
+
 
 <?php $content = ob_get_clean(); ?>
 

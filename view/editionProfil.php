@@ -4,19 +4,19 @@
 
 <p><a class="link" href="javascript:history.back()">Retour</a></p>
 
-<h3>Éditez votre profil</h3>
+<h2>Éditez votre profil</h2>
 
-<form action="index.php?action=editUser" method="post">
+<form id="editForm" action="index.php?action=editUser" method="post">
     <label for="newPseudo">Pseudo :</label>
-    <input type="text" value="<?= $_SESSION['pseudo']?>" name="newPseudo" ><br>
-    <label for="newMdp1">Mot de passe :</label>
-    <input type="password" name="newMdp1"><br>
+    <input id="newPseudo" type="text" value="" name="newPseudo" minlength='2' maxlenght='50'><br>
+    <label for="newMdp1">Nouveau Mot de passe :</label>
+    <input id="newMdp1" type="password" name="newMdp1" value="" minlength='6' maxlenght='50'><br>
     <label for="newMdp2">Répéter votre Mot de Passe :</label>
-    <input type="password" name="newMdp2"><br>
-    <input class="btn btn-dark" type="submit" value="Éditer mon Profil">
+    <input id="newMdp2" type="password" name="newMdp2" value="" minlength='6' maxlenght='50'><br>
+    <input class="btn btn-dark" type="submit" value="Éditer mon Profil"><span id="msgError"></span>
 </form>
 <img id="imgEdition" src="public/img/<?=$_SESSION['avatar']?>" alt="avatar"><br>
-<a href="index.php?action=pageAvatar"><button class="btn btn-dark">Modifier ma photo de profil</button></a>
+<a href="index.php?action=pageAvatar"class="btn btn-dark">Modifier ma photo de profil</a>
 
 <?php $content = ob_get_clean(); ?>
 

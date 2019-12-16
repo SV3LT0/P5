@@ -2,6 +2,7 @@
 <?php session_start(); ?>
 <?php ob_start(); ?>
 
+<p><a class="link" href="index.php">Retourner à l'accueil</a><br>
 <h2 id="">Personnages</h2>
     <p> 
     Cette page vous montre tous les personnages présents sur la Terre du Milieu,

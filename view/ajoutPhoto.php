@@ -4,7 +4,7 @@
 
 <p><a class="link" href="javascript:history.back()">Retour</a></p>
 
-<h3>Modifiez votre photo de profil</h3>
+<h2>Modifiez votre photo de profil</h2>
 
 <form action="index.php?action=editAvatar" method="post" enctype="multipart/form-data">
     <label for="avatar">Choisissez une photo de profil:</label><br>

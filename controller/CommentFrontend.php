@@ -12,26 +12,28 @@ function post()
     $userManager = new UserManager();
 
     $users = $userManager->getUser();
-    $episode = $postManager->getEpisode($_GET['id']);
+    $Sujet = $postManager->getSujet($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);
 
     require('view/postView.php');
 }
 
-function addComment($episodeId, $comment, $idAuteur)
+function addComment($SujetId, $comment, $idAuteur)
 {
-    $commentManager = new CommentManager();    
-    $affectedLines = $commentManager->postComment($episodeId, $comment, $idAuteur);
+    $commentManager = new CommentManager();
+    $postManager = new PostManager();    
+    $affectedLines = $commentManager->postComment($SujetId, $comment, $idAuteur);
+    $majDate = $postManager->updateDate($SujetId);
 
     if($affectedLines === false){
         throw new Exception('Impossible d\'ajouter le commentaire');
     }
     else{
-        header('Location: index.php?action=post&id=' . $episodeId);
+        header('Location: index.php?action=post&id=' . $SujetId);
     }
 }
 
-function deleteComm($id, $episodeId)
+function deleteComm($id, $SujetId)
 {
     $commentManager = new CommentManager();
     $affectedLines = $commentManager->deleteComment($id);
@@ -40,11 +42,11 @@ function deleteComm($id, $episodeId)
         throw new Exception('Impossible de supprimer le commentaire');
     }
     else{
-        header('Location: index.php?action=post&id=' . $episodeId);
+        header('Location: index.php?action=post&id=' . $SujetId);
     }
 }
 
-function reportComm($id, $episodeId)
+function reportComm($id, $SujetId)
 {
     $commentManager = new CommentManager();
     $commentSignale = $commentManager->signaleCommentaire($id);
@@ -53,7 +55,7 @@ function reportComm($id, $episodeId)
         throw new Exception('Impossible de signaler le commentaire');
     }
     else{
-        header('Location: index.php?action=post&id=' . $episodeId);
+        header('Location: index.php?action=post&id=' . $SujetId);
     }
 }
 
@@ -66,6 +68,6 @@ function cancelReport($id)
         throw new Exception('Impossible d\'annuler le signaler');
     }
     else{
-        header('Location: index.php');
+        header('Location: index.php?action=tavern');
     }
 }

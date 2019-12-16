@@ -3,8 +3,8 @@
 
 <?php ob_start(); ?>
 
-<p><a class="link" href="javascript:history.back()">Retour</a><br>
-Votre compte a bien été créé !</p>
+<p><a class="link" href="index.php">Retourner à l'accueil</a><br>
+<span id="confirmation">Votre compte a bien été créé !</span></p>
 
 
 
