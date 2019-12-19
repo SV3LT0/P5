@@ -176,6 +176,7 @@ section
 
 #imgEdition
 {
+    width: 250px;;
     margin:15px;
 }
 
@@ -230,24 +231,26 @@ nav a
     font-size: 1.5em;
 }
 
-
-@media all and (max-width: 1024px)
+#corps
 {
-    h1 
-    {
-        font-size: 3em;
-    }
+	margin:10px auto;
+	width:100%;
+	min-width:400px;
+	max-width:700px;
 }
+ 
+#corps table
+{
+	margin:0px;
+	width:100%;
+    text-overflow: ellipsis; 
+}
+
 
 @media all and (max-width: 768px)
 {
-    .compte
-    {
-        position: static;
-    }
     section
     {
-        margin-top: 50px;
         width: 90%;
     }
 }
@@ -255,6 +258,24 @@ nav a
 {
     section 
     {
-        margin-top: 120px;
+        width: 100%;
     }
+
+    header
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #corps
+    {
+        overflow:auto;
+    }
+
+    td
+    {
+        max-width: 150px;
+        overflow: hidden;
+    }
+    
 }

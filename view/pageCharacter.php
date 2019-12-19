@@ -9,7 +9,7 @@
     certains personnages n'apparaissent pas dans les films mais dans les livres, et parfois
     dans d'autres livres que le Seigneur des Anneaux ou le Hobbit.
     </p>
-    <div id="corps"></div>
+    <div id="corps" class="table-responsive"></div>
 
     <nav id='navPerso'>
         <a href="javascript: onClick=app.showPage(1)">1</a>

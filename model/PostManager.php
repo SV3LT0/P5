@@ -41,15 +41,6 @@ class PostManager extends Manager
         return $nouvelSujet;
     }
 
-    public function modifierSujet($titre, $contenu, $id)
-    {
-        $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE Sujet SET titre=:titre, contenu=:contenu, creation_date=CURDATE() WHERE id=:id');
-        $updateSujet = $req->execute(array('titre'=>$titre, 'contenu'=>$contenu, 'id'=>$id));
-        
-        return $updateSujet;
-    }
-
     public function deletSujet($id)
     {
         $db = $this->dbConnect();

@@ -141,12 +141,15 @@ class App {
         thNaissance.textContent ='Naissance';
         entete.appendChild(thNaissance);
         let thDeath = document.createElement('th');
+        thDeath.className = "colHide"
         thDeath.textContent ='Mort';
         entete.appendChild(thDeath);
         let thRace = document.createElement('th');
+        thRace.className = "colHide"
         thRace.textContent = 'Race';
         entete.appendChild(thRace);
         let thRealm = document.createElement('th');
+        thRealm.className = "colHide"
         thRealm.textContent = 'Royaume';
         entete.appendChild(thRealm);
         let thWiki = document.createElement('th');

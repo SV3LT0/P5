@@ -13,10 +13,7 @@ require('controller/LotrController.php');
 
 try {
     if(isset($_GET['action'])){
-        if($_GET['action'] == 'listSujets'){
-            listSujets();
-        }
-        elseif($_GET['action'] == 'post'){
+        if($_GET['action'] == 'post'){
             if(isset($_GET['id']) && $_GET['id']>0){
                 post();
             }
@@ -31,11 +28,8 @@ try {
         elseif($_GET['action']=='inscription'){
             pageInscription();
         }
-        elseif($_GET['action']=='pageConnexion'){
-            pageConnexion();
-        }
         elseif($_GET['action']=='addUser'){
-            if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{6,}$#',$_POST['mdp'])){
+            if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)*.{6,}$#',$_POST['mdp'])){
                 throw new Exception('Mot de passe non conforme');
             }
             elseif($_POST['mdp']!=$_POST['verifMdp']) {
@@ -44,6 +38,9 @@ try {
             else{
                 addUser($_POST['pseudo'],$_POST['mdp']);
             }
+        }
+        elseif($_GET['action']=='pageConnexion'){
+            pageConnexion();
         }
         elseif ($_GET['action']=='connexion'){
             connexion($_POST['pseudo'],$_POST['mdp']);
@@ -55,7 +52,7 @@ try {
             pageEditionProfil();
         }
         elseif($_GET['action']=='editUser'){
-            if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{6,}$#',$_POST['newMdp1'])){
+            if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)*.{6,}$#',$_POST['newMdp1'])){
                 session_start();
                 editerUser($_POST['newPseudo'],$_POST['newMdp1'], $_POST['newMdp2'], $_SESSION['id'], $_SESSION['pseudo']);
             }
@@ -80,17 +77,6 @@ try {
             else {
                 throw new Exception('Ce commentaire n\'existe pas');
             }
-        }  
-        elseif($_GET['action']=='modifier'){
-            if(isset($_GET['id']) && $_GET['id']>0){
-                pageUpdate();
-            }
-            else {
-                throw new Exception('Aucun identifiant d\'épisode envoyé');
-            }
-        }
-        elseif($_GET['action']=='update'){
-            updateSujet($_POST['titre'],$_POST['contenu'],$_GET['id'], $_POST['chapitre']);
         }
         elseif ($_GET['action']=='supprimer') {
             supprimerSujet($_GET['id']);

@@ -17,26 +17,27 @@
     <body>
         <header id='header'>
             <a id="lienHome" href="index.php"><h1>Les Terres du Milieu</h1></a>
+                <div id="compte">
+                    <?php
+                        if(isset($_SESSION['pseudo'])){ ?>
+                            <img id="avatar" src="public/img/<?=$_SESSION['avatar']?>" alt="avatar"><br>
+                            <p>Salut <?php echo $_SESSION['pseudo'];?> <br>
+                            <a class="btn btn-dark" href="index.php?action=deconnexion" >Déconnexion</a>
+                            <a class="btn btn-dark" href="index.php?action=editerProfil" >Editer Profil</a></p>
+                        <?php
+                        } else {
+                        ?> 
+                            <a class="btn btn-dark" href="index.php?action=pageConnexion">Connexion</a><br/>
+                            <a class="btn btn-dark" href="index.php?action=inscription">Inscription</a><br/>
+                        <?php
+                        } ?>
+                </div>
                 <div id="onglets">
                     <a class="btn btn-dark" href="index.php?action=movies">FILMS</a>
                     <a class="btn btn-dark" href="index.php?action=character">PERSONNAGES</a>
                     <a class="btn btn-dark" href="index.php?action=tavern">TAVERNE</a>
                 </div>
-                    <div id="compte">
-                        <?php
-                            if(isset($_SESSION['pseudo'])){ ?>
-                                <img id="avatar" src="public/img/<?=$_SESSION['avatar']?>" alt="avatar"><br>
-                                <p>Salut <?php echo $_SESSION['pseudo'];?> <br>
-                                <a class="btn btn-dark" href="index.php?action=deconnexion" >Déconnexion</a>
-                                <a class="btn btn-dark" href="index.php?action=editerProfil" >Editer Profil</a></p>
-                            <?php
-                            } else {
-                            ?> 
-                                <a class="btn btn-dark" href="index.php?action=pageConnexion">Connexion</a><br/>
-                                <a class="btn btn-dark" href="index.php?action=inscription">Inscription</a><br/>
-                            <?php
-                            } ?>
-                    </div>
+
         </header>
         <section>
             <?= $content ?>
