@@ -10,9 +10,6 @@ class User {
         this.regexPseudo = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{2,}$/;
         this.regexMdp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)*.{6,}$/;
 
-        this.msgError = document.getElementById('msgError');
-        this.confirmation = document.getElementById('confirmation');
-
         if (this.formEdit) {
             this.formEdit.addEventListener('submit',this.validerEdition.bind(this));
         } else if (this.formUser) {
