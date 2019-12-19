@@ -110,7 +110,7 @@ function editAvatar($avatarName, $avatarTmpName, $avatarSize)
             $userManager = new UserManager();
             $ajoutAvatar = $userManager->ajoutAvatar($newName,$idUser);
 
-            if ($editPhotoProfil===false) {
+            if ($ajoutAvatar===false) {
                 throw new Exception ('Impossible de modifier votre photo de profil');
             }else{
                 $_SESSION['avatar']=$newName;
